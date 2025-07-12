@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle, Globe, MessageSquare } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { motion } from 'framer-motion';
+import FloatingButton from '../components/FloatingButton';
+import DynamicBackground from '../components/DynamicBackground';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -50,6 +53,52 @@ const Contact = () => {
     }, 1500);
   };
 
+  // Add subscribe handler
+  const [newsletterEmail, setNewsletterEmail] = useState("");
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!newsletterEmail.trim() || !emailPattern.test(newsletterEmail)) {
+      toast.error('Please provide an Email !', {
+        position: "top-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+        style: {
+          background: 'linear-gradient(90deg, #ef4444 0%, #a21caf 100%)',
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: '1.1rem',
+          borderRadius: '1rem',
+          boxShadow: '0 8px 32px 0 rgba(239,68,68,0.18)'
+        },
+        icon: '⚠️'
+      });
+      return;
+    }
+    toast.success('Thank you for subscribing !! You will be notified on your given Email', {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      theme: "colored",
+      style: {
+        background: 'linear-gradient(90deg, #6366f1 0%, #a21caf 100%)',
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: '1.1rem',
+        borderRadius: '1rem',
+        boxShadow: '0 8px 32px 0 rgba(99,102,241,0.18)'
+      },
+      icon: '🎉'
+    });
+  };
+
   const contactInfo = [
     {
       icon: <Mail className="h-6 w-6 text-blue-400" />,
@@ -78,33 +127,46 @@ const Contact = () => {
   ];
 
   return (
-    <div className="bg-gray-950 min-h-screen">
+    <div className="bg-slate-950 min-h-screen font-['Inter'] relative overflow-hidden">
+      <DynamicBackground />
       <ToastContainer />
-      
       {/* Hero Section */}
-      <section className="relative overflow-hidden py-20">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-gray-900/10"></div>
+      <section className="relative overflow-hidden py-20 z-10">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Globe className="h-16 w-16 text-blue-400 mx-auto mb-8" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               Get In Touch
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Ready to transform your approach to global intelligence? 
-              Let's discuss how our platform can serve your needs.
-            </p>
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              Ready to transform your approach to global intelligence? Let's discuss how our platform can serve your needs.
+            </motion.p>
           </div>
         </div>
       </section>
-
       {/* Contact Form & Info */}
-      <section className="py-20">
+      <section className="py-20 z-10 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
-            <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8">
-              <h2 className="text-3xl font-bold text-white mb-6">Send us a message</h2>
+            <motion.div
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-10 shadow-xl glassmorphism hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">Send us a message</h2>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -192,10 +254,13 @@ const Contact = () => {
                   />
                 </div>
 
-                <button
+                <FloatingButton
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                  className="w-full mt-2"
+                  size="lg"
+                  icon={<Send className="h-5 w-5" />}
+                  expandedContent={<div className="text-left text-white"><b>We respond within 24 hours!</b></div>}
                 >
                   {isSubmitting ? (
                     <>
@@ -203,30 +268,34 @@ const Contact = () => {
                       Sending...
                     </>
                   ) : (
-                    <>
-                      Send Message
-                      <Send className="ml-2 h-5 w-5" />
-                    </>
+                    <>Send Message</>
                   )}
-                </button>
+                </FloatingButton>
               </form>
-            </div>
-
+            </motion.div>
             {/* Contact Information */}
             <div className="space-y-8">
-              <div>
-                <h2 className="text-3xl font-bold text-white mb-6">Contact Information</h2>
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                viewport={{ once: true }}
+              >
+                <h2 className="text-3xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">Contact Information</h2>
                 <p className="text-lg text-gray-300 mb-8">
-                  We're here to help you harness the power of global intelligence. 
-                  Reach out through any of these channels and we'll respond promptly.
+                  We're here to help you harness the power of global intelligence. Reach out through any of these channels and we'll respond promptly.
                 </p>
-              </div>
-
+              </motion.div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 {contactInfo.map((info, index) => (
-                  <div
+                  <motion.div
                     key={index}
-                    className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:bg-gray-800/70 transition-all duration-300"
+                    className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-2xl p-6 shadow-xl glassmorphism hover:shadow-2xl hover:scale-105 hover:border-blue-500/60 transition-all duration-300 group cursor-pointer relative"
+                    initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5, delay: index * 0.1 }}
+                    viewport={{ once: true }}
                   >
                     <div className="flex items-center space-x-3 mb-3">
                       {info.icon}
@@ -240,33 +309,52 @@ const Contact = () => {
                     <p className="text-sm text-gray-400">
                       {info.description}
                     </p>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
-
               {/* Newsletter Signup */}
-              <div className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-gray-700 rounded-xl p-8">
-                <h3 className="text-2xl font-bold text-white mb-4">
+              <motion.div
+                className="bg-gradient-to-r from-blue-900/50 to-purple-900/50 border border-gray-700 rounded-2xl p-8 shadow-xl glassmorphism"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                <h3 className="text-2xl font-extrabold mb-4 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
                   Stay Updated
                 </h3>
                 <p className="text-gray-300 mb-6">
-                  Subscribe to our newsletter for the latest updates on global 
-                  protest activities and platform enhancements.
+                  Subscribe to our newsletter for the latest updates on global protest activities and platform enhancements.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <input
                     type="email"
                     placeholder="Enter your email"
                     className="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    value={newsletterEmail}
+                    onChange={e => setNewsletterEmail(e.target.value)}
                   />
-                  <button className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
+                  <FloatingButton
+                    type="button"
+                    size="md"
+                    className="w-full sm:w-auto"
+                    variant="primary"
+                    expandedContent={<div className="text-white">Get news, no spam!</div>}
+                    onClick={handleSubscribe}
+                  >
                     Subscribe
-                  </button>
+                  </FloatingButton>
                 </div>
-              </div>
-
+              </motion.div>
               {/* Response Time */}
-              <div className="bg-green-900/20 border border-green-800/50 rounded-xl p-6">
+              <motion.div
+                className="bg-gradient-to-br from-green-900/20 to-slate-900/80 border border-green-800/50 rounded-2xl p-6 shadow-xl glassmorphism hover:shadow-2xl hover:scale-105 hover:border-green-500/60 transition-all duration-300 group cursor-pointer"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+                viewport={{ once: true }}
+              >
                 <div className="flex items-center space-x-3 mb-3">
                   <CheckCircle className="h-6 w-6 text-green-400" />
                   <h3 className="text-xl font-semibold text-white">
@@ -274,10 +362,9 @@ const Contact = () => {
                   </h3>
                 </div>
                 <p className="text-gray-300">
-                  We typically respond to all inquiries within 24 hours during business days. 
-                  For urgent matters, please call our direct line.
+                  We typically respond to all inquiries within 24 hours during business days. For urgent matters, please call our direct line.
                 </p>
-              </div>
+              </motion.div>
             </div>
           </div>
         </div>

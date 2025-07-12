@@ -1,92 +1,227 @@
-import { Github, Mail, Globe, Shield } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { Github, Twitter, Linkedin, Mail, Globe, Shield, Heart } from 'lucide-react';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      name: 'GitHub',
+      icon: <Github className="h-5 w-5" />,
+      href: 'https://github.com/protest-monitor',
+      color: 'hover:text-gray-400'
+    },
+    {
+      name: 'Twitter',
+      icon: <Twitter className="h-5 w-5" />,
+      href: 'https://twitter.com/protestmonitor',
+      color: 'hover:text-blue-400'
+    },
+    {
+      name: 'LinkedIn',
+      icon: <Linkedin className="h-5 w-5" />,
+      href: 'https://linkedin.com/company/protest-monitor',
+      color: 'hover:text-blue-600'
+    },
+    {
+      name: 'Email',
+      icon: <Mail className="h-5 w-5" />,
+      href: 'mailto:contact@protestmonitor.ai',
+      color: 'hover:text-red-400'
+    }
+  ];
+
+  const quickLinks = [
+    { name: 'About', href: '/about' },
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Team', href: '/team' }
+  ];
+
   return (
-    <footer className="bg-gray-900 border-t border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <footer className="relative z-20 bg-slate-900/80 backdrop-blur-sm border-t border-slate-800/50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Logo and Description */}
+          {/* Brand Section */}
           <div className="col-span-1 md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <Globe className="h-8 w-8 text-blue-400" />
-              <Shield className="h-8 w-8 text-red-400" />
-              <div>
-                <h3 className="text-xl font-bold text-white">Protest Monitor</h3>
-                <p className="text-sm text-gray-400">Real-Time OSINT Tracker</p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+            >
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="p-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-lg">
+                  <Globe className="h-6 w-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-white">Protest Monitor</h3>
+                  <p className="text-slate-400 text-sm">OSINT Intelligence Platform</p>
+                </div>
               </div>
-            </div>
-            <p className="text-gray-400 text-sm max-w-md">
-              From Noise to Noesis: Decoding Global Disruption through advanced 
-              AI-powered analysis and real-time monitoring of protests and civil unrest worldwide.
-            </p>
+              
+              <p className="text-slate-400 mb-6 leading-relaxed max-w-md">
+                Advanced AI-powered monitoring system that transforms chaotic protest data 
+                into actionable intelligence for governments, organizations, and researchers worldwide.
+              </p>
+              
+              <div className="flex space-x-4">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-2 bg-slate-800/50 rounded-lg text-slate-400 transition-all duration-300 ${social.color} hover:bg-slate-700/50 hover:scale-110`}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                    whileHover={{ y: -2 }}
+                  >
+                    {social.icon}
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              <li>
-                <a href="/" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Home
-                </a>
-              </li>
-              <li>
-                <a href="/about" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="/dashboard" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Live Dashboard
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
-                  Contact
-                </a>
-              </li>
-            </ul>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold text-white mb-6">Quick Links</h4>
+              <ul className="space-y-3">
+                {quickLinks.map((link, index) => (
+                  <motion.li
+                    key={link.name}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Link
+                      to={link.href}
+                      className="text-slate-400 hover:text-white transition-colors duration-300 flex items-center group"
+                    >
+                      <span className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                      {link.name}
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
           </div>
 
-          {/* Connect */}
+          {/* Resources */}
           <div>
-            <h4 className="text-white font-semibold mb-4">Connect</h4>
-            <div className="flex space-x-4">
-              <a
-                href="https://github.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Github className="h-6 w-6" />
-              </a>
-              <a
-                href="mailto:contact@protestmonitor.com"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                <Mail className="h-6 w-6" />
-              </a>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              viewport={{ once: true }}
+            >
+              <h4 className="text-lg font-semibold text-white mb-6">Resources</h4>
+              <ul className="space-y-3">
+                <motion.li
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href="https://github.com/protest-monitor/docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-white transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    Documentation
+                  </a>
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href="https://github.com/protest-monitor/api"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-400 hover:text-white transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    API Reference
+                  </a>
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.7 }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href="/privacy"
+                    className="text-slate-400 hover:text-white transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    Privacy Policy
+                  </a>
+                </motion.li>
+                <motion.li
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.6, delay: 0.8 }}
+                  viewport={{ once: true }}
+                >
+                  <a
+                    href="/terms"
+                    className="text-slate-400 hover:text-white transition-colors duration-300 flex items-center group"
+                  >
+                    <span className="w-2 h-2 bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full mr-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+                    Terms of Service
+                  </a>
+                </motion.li>
+              </ul>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Bottom Section */}
+        <motion.div
+          className="border-t border-slate-800/50 mt-12 pt-8"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+            <div className="flex items-center space-x-2 text-slate-400 text-sm">
+              <Shield className="h-4 w-4" />
+              <span>© {currentYear} Protest Monitor. All rights reserved.</span>
+            </div>
+            
+            <div className="flex items-center space-x-4 text-slate-400 text-sm">
+              <span className="flex items-center">
+                Made with <Heart className="h-4 w-4 mx-1 text-red-400" /> by the Protest Monitor Team
+              </span>
+            </div>
+            
+            <div className="text-slate-500 text-xs text-center md:text-right max-w-md">
+              <p>
+                This platform is designed for research and monitoring purposes. 
+                Data is collected from publicly available sources and processed 
+                using AI algorithms for analysis and verification.
+              </p>
             </div>
           </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm">
-            © 2025 Protest & Unrest Monitor. All rights reserved.
-          </p>
-          <div className="flex space-x-6 mt-4 sm:mt-0">
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Privacy Policy
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Terms of Service
-            </a>
-            <a href="#" className="text-gray-400 hover:text-white text-sm transition-colors">
-              Data Sources
-            </a>
-          </div>
-        </div>
+        </motion.div>
       </div>
     </footer>
   );

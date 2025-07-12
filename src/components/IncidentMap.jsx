@@ -127,7 +127,7 @@ const IncidentMap = ({ selectedFilter = 'all' }) => {
           icon={createCustomIcon(incident.severity)}
         >
           <Popup className="custom-popup" maxWidth={350}>
-            <div className="bg-gray-900 text-white p-4 rounded-lg border border-gray-700 min-w-[300px]">
+            <div className="bg-gray-900 text-white p-4 rounded-lg border border-gray-700 min-w-[220px] max-w-[320px] max-h-[300px] sm:max-h-[220px] xs:max-h-[160px] overflow-y-auto text-sm break-words">
               {/* Header */}
               <div className="flex items-start justify-between mb-3">
                 <h3 className="text-lg font-bold text-white leading-tight pr-2">

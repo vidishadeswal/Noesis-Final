@@ -1,16 +1,18 @@
 import { useState } from 'react';
 import { Users, ChevronDown, ChevronUp, Github, Linkedin, Mail, Award, Code, Database, Shield, Globe } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import DynamicBackground from '../components/DynamicBackground';
 
 const Team = () => {
   const [openFaq, setOpenFaq] = useState(null);
 
   const teamMembers = [
     {
-      name: "Dr. Sarah Chen",
-      role: "Chief Technology Officer",
+      name: "Sanidhya Shishodia",
+      role: "Student at Vips",
       bio: "Former NSA analyst with 15+ years in OSINT and machine learning. PhD in Computer Science from MIT.",
       icon: <Code className="h-8 w-8 text-blue-400" />,
-      expertise: ["AI/ML", "OSINT", "Cybersecurity"],
+      expertise: ["AI/ML", "OSINT", "Frontend"],
       social: {
         github: "#",
         linkedin: "#",
@@ -18,11 +20,11 @@ const Team = () => {
       }
     },
     {
-      name: "Marcus Rodriguez",
-      role: "Head of Data Science",
+      name: "Vidisha Deswal",
+      role: "Student at IGDTUW",
       bio: "Data scientist specializing in NLP and geospatial analysis. Former lead at Google's Crisis Response team.",
       icon: <Database className="h-8 w-8 text-green-400" />,
-      expertise: ["NLP", "Geospatial Analysis", "Big Data"],
+      expertise: ["Frontend", "OSINT", "AI/ML"],
       social: {
         github: "#",
         linkedin: "#",
@@ -30,29 +32,18 @@ const Team = () => {
       }
     },
     {
-      name: "Dr. Amira Hassan",
-      role: "Director of Intelligence",
+      name: "Atharva Singh",
+      role: "Student at Vips",
       bio: "Former UN peacekeeping intelligence officer with expertise in conflict analysis and crisis prediction.",
       icon: <Shield className="h-8 w-8 text-purple-400" />,
-      expertise: ["Conflict Analysis", "Crisis Management", "International Relations"],
+      expertise: ["OSINT", "AI/ML", "Backend"],
       social: {
         github: "#",
         linkedin: "#",
         email: "amira@protestmonitor.com"
       }
     },
-    {
-      name: "James Thompson",
-      role: "Lead Frontend Engineer",
-      bio: "Full-stack developer with focus on real-time data visualization and user experience design.",
-      icon: <Globe className="h-8 w-8 text-yellow-400" />,
-      expertise: ["React", "Data Visualization", "UX Design"],
-      social: {
-        github: "#",
-        linkedin: "#",
-        email: "james@protestmonitor.com"
-      }
-    }
+    
   ];
 
   const timeline = [
@@ -123,24 +114,33 @@ const Team = () => {
   };
 
   return (
-    <div className="bg-gray-950 min-h-screen">
+    <div className="bg-slate-950 min-h-screen font-['Inter'] relative overflow-hidden">
+      <DynamicBackground />
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-gray-900/10"></div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Users className="h-16 w-16 text-blue-400 mx-auto mb-8" />
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <motion.h1
+              className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
               Meet Our Team
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              World-class experts in intelligence, technology, and crisis analysis 
-              working together to decode global disruption.
-            </p>
+            </motion.h1>
+            <motion.p
+              className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+            >
+              World-class experts in intelligence, technology, and crisis analysis working together to decode global disruption.
+            </motion.p>
           </div>
         </div>
       </section>
-
       {/* Team Members */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,33 +149,35 @@ const Team = () => {
               Leadership Team
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Our diverse team brings together decades of experience in intelligence, 
-              technology, and crisis management from leading organizations worldwide.
+              Our diverse team brings together decades of experience in intelligence, technology, and crisis management from leading organizations worldwide.
             </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
             {teamMembers.map((member, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 hover:bg-gray-800/70 transition-all duration-300 hover:transform hover:scale-105"
+                className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-8 shadow-xl glassmorphism text-center hover:shadow-2xl hover:scale-105 hover:border-blue-500/60 transition-all duration-300 group cursor-pointer"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                viewport={{ once: true }}
               >
-                <div className="text-center mb-6">
-                  <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                    {member.icon}
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-2">
-                    {member.name}
-                  </h3>
-                  <p className="text-blue-400 font-medium mb-4">
-                    {member.role}
-                  </p>
+                <div className="w-20 h-20 bg-gradient-to-br from-gray-700 to-gray-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                  {member.icon}
                 </div>
+                <h3 className="text-xl font-bold text-white mb-2">
+                  {member.name}
+                </h3>
+                <p className="text-blue-400 font-medium mb-4">
+                  {member.role}
+                </p>
                 <p className="text-gray-300 text-sm mb-4 leading-relaxed">
                   {member.bio}
                 </p>
                 <div className="mb-4">
                   <h4 className="text-white font-semibold mb-2">Expertise:</h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 justify-center">
                     {member.expertise.map((skill, skillIndex) => (
                       <span
                         key={skillIndex}
@@ -206,12 +208,11 @@ const Team = () => {
                     <Mail className="h-5 w-5" />
                   </a>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
-
       {/* How It Works Timeline */}
       <section className="py-20 bg-gray-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -253,7 +254,6 @@ const Team = () => {
           </div>
         </div>
       </section>
-
       {/* FAQ Section */}
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -261,39 +261,59 @@ const Team = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-400">
-              Get answers to common questions about our platform and capabilities.
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              Find answers to common questions about our platform, technology, and services.
             </p>
           </div>
-          <div className="space-y-4">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-gray-800/50 border border-gray-700 rounded-xl overflow-hidden"
+          <div className="space-y-6">
+            {faqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                className={`rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 shadow-xl glassmorphism hover:shadow-2xl hover:scale-105 hover:border-blue-500/60 transition-all duration-300 group cursor-pointer relative ${openFaq === idx ? 'border-blue-500/60 scale-105 shadow-blue-500/40' : ''}`}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                viewport={{ once: true }}
+                onClick={() => setOpenFaq(idx)}
               >
-                <button
-                  onClick={() => toggleFaq(index)}
-                  className="w-full px-6 py-4 text-left flex items-center justify-between hover:bg-gray-800/70 transition-colors"
-                >
+                <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold text-white">
                     {faq.question}
                   </h3>
-                  {openFaq === index ? (
-                    <ChevronUp className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5 text-gray-400" />
-                  )}
-                </button>
-                {openFaq === index && (
-                  <div className="px-6 pb-4">
-                    <p className="text-gray-300 leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </div>
-                )}
-              </div>
+                </div>
+              </motion.div>
             ))}
           </div>
+          <AnimatePresence>
+            {openFaq !== null && (
+              <motion.div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onClick={() => setOpenFaq(null)}
+              >
+                <motion.div
+                  className="rounded-2xl bg-gradient-to-br from-slate-800/90 to-slate-900/90 border border-blue-500/60 p-10 shadow-2xl glassmorphism max-w-xl w-full text-center"
+                  initial={{ scale: 0.95, y: 40, opacity: 0 }}
+                  animate={{ scale: 1, y: 0, opacity: 1 }}
+                  exit={{ scale: 0.95, y: 40, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={e => e.stopPropagation()}
+                >
+                  <h3 className="text-2xl font-bold text-white mb-4">{faqs[openFaq].question}</h3>
+                  <p className="text-lg text-blue-200 mb-2">{faqs[openFaq].answer}</p>
+                  <button
+                    className="mt-6 px-6 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-purple-500 text-white font-semibold shadow hover:scale-105 transition-transform"
+                    onClick={() => setOpenFaq(null)}
+                  >
+                    Close
+                  </button>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
@@ -311,30 +331,42 @@ const Team = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 text-center">
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(99,102,241,0.18)' }}
+              transition={{ duration: 0.3 }}
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 text-center shadow-xl glassmorphism cursor-pointer hover:shadow-2xl hover:border-blue-500/60"
+            >
               <h3 className="text-xl font-bold text-white mb-3">
                 UN Partnership
               </h3>
               <p className="text-gray-300">
                 Collaborating with UN agencies on crisis monitoring and humanitarian response.
               </p>
-            </div>
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 text-center">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(99,102,241,0.18)' }}
+              transition={{ duration: 0.3 }}
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 text-center shadow-xl glassmorphism cursor-pointer hover:shadow-2xl hover:border-blue-500/60"
+            >
               <h3 className="text-xl font-bold text-white mb-3">
                 Academic Network
               </h3>
               <p className="text-gray-300">
                 Research partnerships with leading universities studying social movements.
               </p>
-            </div>
-            <div className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 text-center">
+            </motion.div>
+            <motion.div
+              whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(99,102,241,0.18)' }}
+              transition={{ duration: 0.3 }}
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-6 text-center shadow-xl glassmorphism cursor-pointer hover:shadow-2xl hover:border-blue-500/60"
+            >
               <h3 className="text-xl font-bold text-white mb-3">
                 Tech Innovation Award
               </h3>
               <p className="text-gray-300">
                 Recognized for excellence in AI-powered crisis intelligence systems.
               </p>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

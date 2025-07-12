@@ -1,4 +1,7 @@
 import { Shield, Globe, Brain, Users, Target, Zap, AlertCircle, CheckCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import DynamicBackground from '../components/DynamicBackground';
 
 const About = () => {
   const problems = [
@@ -46,8 +49,13 @@ const About = () => {
     "Historical trend analysis and prediction"
   ];
 
+  // Animation state for Problems/Solutions
+  const [problemsOpen, setProblemsOpen] = useState(false);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+
   return (
-    <div className="bg-gray-950 min-h-screen">
+    <div className="bg-slate-950 min-h-screen font-['Inter'] relative overflow-hidden">
+      <DynamicBackground />
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-purple-900/10 to-gray-900/10"></div>
@@ -58,10 +66,10 @@ const About = () => {
               <Globe className="h-12 w-12 text-purple-400" />
               <Brain className="h-12 w-12 text-green-400" />
             </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
               About Our Platform
             </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-300 mb-4 max-w-4xl mx-auto">
               Transforming chaos into clarity through advanced OSINT and AI technology
             </p>
           </div>
@@ -69,51 +77,66 @@ const About = () => {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 bg-gray-900/30">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+            {/* Our Mission Card */}
+            <motion.div
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-10 shadow-xl mb-8 lg:mb-0 backdrop-blur-md hover:shadow-2xl transition-all duration-300"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
+            >
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-6 text-center bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">
                 Our Mission
               </h2>
-              <p className="text-lg text-gray-300 mb-6">
+              <p className="text-lg text-gray-300 mb-6 text-center">
                 In an era of global connectivity and rapid information flow, understanding 
                 civil unrest and protest movements has become more critical than ever. 
                 Our platform bridges the gap between raw data and actionable intelligence.
               </p>
-              <p className="text-lg text-gray-300 mb-6">
+              <p className="text-lg text-gray-300 mb-6 text-center">
                 We believe that informed decision-making requires access to verified, 
                 real-time information. By leveraging cutting-edge AI and OSINT techniques, 
                 we transform the noise of social media and news into clear, actionable insights.
               </p>
-              <div className="flex items-center space-x-4">
+              <div className="flex items-center justify-center space-x-4">
                 <Target className="h-8 w-8 text-blue-400" />
                 <span className="text-xl font-semibold text-white">
                   Empowering informed decisions through intelligence
                 </span>
               </div>
-            </div>
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700">
-              <h3 className="text-2xl font-bold text-white mb-6">Key Statistics</h3>
+            </motion.div>
+            {/* Key Statistics Card */}
+            <motion.div
+              className="rounded-2xl bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 p-10 shadow-xl glassmorphism text-center hover:shadow-2xl hover:scale-105 hover:border-blue-500/60 transition-all duration-300 group cursor-pointer"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05, boxShadow: '0 8px 32px 0 rgba(0, 184, 255, 0.25)' }}
+            >
+              <h3 className="text-2xl font-extrabold mb-6 bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-pulse">Key Statistics</h3>
               <div className="grid grid-cols-2 gap-6">
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-400 mb-2">50+</div>
+                  <div className="text-3xl font-bold text-blue-400 mb-2 group-hover:glow-text">50+</div>
                   <div className="text-gray-300">Data Sources</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-green-400 mb-2">24/7</div>
+                  <div className="text-3xl font-bold text-green-400 mb-2 group-hover:glow-text">24/7</div>
                   <div className="text-gray-300">Monitoring</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-purple-400 mb-2">195</div>
+                  <div className="text-3xl font-bold text-purple-400 mb-2 group-hover:glow-text">195</div>
                   <div className="text-gray-300">Countries</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-3xl font-bold text-yellow-400 mb-2">&lt;60s</div>
+                  <div className="text-3xl font-bold text-yellow-400 mb-2 group-hover:glow-text">&lt;60s</div>
                   <div className="text-gray-300">Alert Time</div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -121,7 +144,7 @@ const About = () => {
       {/* Problem & Solution */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               The Challenge We Solve
             </h2>
@@ -130,49 +153,119 @@ const About = () => {
               information-rich environment. We've built a solution that addresses 
               these critical gaps.
             </p>
-          </div>
+          </motion.div>
 
           {/* Problems */}
-          <div className="mb-16">
-            <h3 className="text-2xl font-bold text-white mb-8 text-center">Current Problems</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {problems.map((problem, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-800/50 border border-red-900/50 rounded-xl p-6 hover:border-red-800/50 transition-all duration-300"
+          <motion.div
+            className="mb-16 flex flex-col items-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              className="main-card-problems relative rounded-2xl bg-gradient-to-br from-red-900/40 to-slate-900/80 border border-red-700/40 p-8 shadow-xl mb-8 w-full max-w-2xl text-center cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+              onMouseEnter={() => setProblemsOpen(true)}
+              onMouseLeave={() => setProblemsOpen(false)}
+              whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(255, 0, 80, 0.18)' }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-2">Current Problems</h3>
+              <p className="text-gray-300 mb-2">What makes protest monitoring so difficult?</p>
+              {/* Animated glowing border */}
+              <div className="absolute inset-0 rounded-2xl pointer-events-none group-hover:shadow-[0_0_40px_10px_rgba(255,0,80,0.15)] transition-all duration-300" />
+            </motion.div>
+            <AnimatePresence>
+              {problemsOpen && (
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4 w-full max-w-5xl"
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.95, y: 20 },
+                    visible: { opacity: 1, scale: 1, y: 0, transition: { staggerChildren: 0.12 } }
+                  }}
                 >
-                  <div className="mb-4">{problem.icon}</div>
-                  <h4 className="text-xl font-semibold text-white mb-3">
-                    {problem.title}
-                  </h4>
-                  <p className="text-gray-400">
-                    {problem.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+                  {problems.map((problem, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-red-700/40 rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:scale-105 hover:border-red-500/60 transition-all duration-300 group cursor-pointer relative"
+                      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <div className="mb-4 group-hover:glow-text">{problem.icon}</div>
+                      <h4 className="text-xl font-semibold text-white mb-3">
+                        {problem.title}
+                      </h4>
+                      <p className="text-gray-400">
+                        {problem.description}
+                      </p>
+                      {/* Glowing border effect */}
+                      <div className="absolute inset-0 rounded-2xl pointer-events-none group-hover:shadow-[0_0_40px_10px_rgba(255,0,80,0.12)] transition-all duration-300" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
 
           {/* Solutions */}
-          <div>
-            <h3 className="text-2xl font-bold text-white mb-8 text-center">Our Solutions</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {solutions.map((solution, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-800/50 border border-green-900/50 rounded-xl p-6 hover:border-green-800/50 transition-all duration-300"
+          <motion.div
+            className="flex flex-col items-center"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <motion.div
+              className="main-card-solutions relative rounded-2xl bg-gradient-to-br from-green-900/40 to-slate-900/80 border border-green-700/40 p-8 shadow-xl mb-8 w-full max-w-2xl text-center cursor-pointer hover:shadow-2xl hover:scale-105 transition-all duration-300 group"
+              onMouseEnter={() => setSolutionsOpen(true)}
+              onMouseLeave={() => setSolutionsOpen(false)}
+              whileHover={{ scale: 1.04, boxShadow: '0 8px 32px 0 rgba(0, 255, 80, 0.18)' }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-2">Our Solutions</h3>
+              <p className="text-gray-300 mb-2">How do we solve these challenges?</p>
+              {/* Animated glowing border */}
+              <div className="absolute inset-0 rounded-2xl pointer-events-none group-hover:shadow-[0_0_40px_10px_rgba(0,255,80,0.15)] transition-all duration-300" />
+            </motion.div>
+            <AnimatePresence>
+              {solutionsOpen && (
+                <motion.div
+                  className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-4 w-full max-w-5xl"
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  variants={{
+                    hidden: { opacity: 0, scale: 0.95, y: 20 },
+                    visible: { opacity: 1, scale: 1, y: 0, transition: { staggerChildren: 0.12 } }
+                  }}
                 >
-                  <div className="mb-4">{solution.icon}</div>
-                  <h4 className="text-xl font-semibold text-white mb-3">
-                    {solution.title}
-                  </h4>
-                  <p className="text-gray-400">
-                    {solution.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+                  {solutions.map((solution, index) => (
+                    <motion.div
+                      key={index}
+                      className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-green-700/40 rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:scale-105 hover:border-green-500/60 transition-all duration-300 group cursor-pointer relative"
+                      initial={{ opacity: 0, scale: 0.95, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                      transition={{ duration: 0.5, delay: index * 0.1 }}
+                    >
+                      <div className="mb-4 group-hover:glow-text">{solution.icon}</div>
+                      <h4 className="text-xl font-semibold text-white mb-3">
+                        {solution.title}
+                      </h4>
+                      <p className="text-gray-400">
+                        {solution.description}
+                      </p>
+                      {/* Glowing border effect */}
+                      <div className="absolute inset-0 rounded-2xl pointer-events-none group-hover:shadow-[0_0_40px_10px_rgba(0,255,80,0.12)] transition-all duration-300" />
+                    </motion.div>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 
@@ -180,7 +273,13 @@ const About = () => {
       <section className="py-20 bg-gray-900/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-8 border border-gray-700">
+            <motion.div
+              className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-xl p-8 border border-slate-700/50 shadow-xl"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+              viewport={{ once: true }}
+            >
               <h3 className="text-2xl font-bold text-white mb-6">
                 Advanced Capabilities
               </h3>
@@ -192,8 +291,13 @@ const About = () => {
                   </li>
                 ))}
               </ul>
-            </div>
-            <div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: 0.1 }}
+              viewport={{ once: true }}
+            >
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
                 How AI & OSINT Work Together
               </h2>
@@ -218,7 +322,7 @@ const About = () => {
                   to developing situations.
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -226,7 +330,7 @@ const About = () => {
       {/* Use Cases */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+          <motion.div className="text-center mb-16" initial={{ opacity: 0, y: 40 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Who Benefits
             </h2>
@@ -234,7 +338,7 @@ const About = () => {
               Our platform serves diverse stakeholders who need reliable, 
               real-time intelligence about civil unrest and protest activities.
             </p>
-          </div>
+          </motion.div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
@@ -249,27 +353,32 @@ const About = () => {
               },
               {
                 icon: <Globe className="h-8 w-8 text-purple-400" />,
-                title: "Media Organizations",
-                description: "Breaking news and investigative reporting"
+                title: "Journalists & Researchers",
+                description: "Data-driven reporting and analysis"
               },
               {
-                icon: <Brain className="h-8 w-8 text-yellow-400" />,
-                title: "Researchers",
-                description: "Academic study of social movements"
+                icon: <Target className="h-8 w-8 text-yellow-400" />,
+                title: "Crisis Responders",
+                description: "Rapid response and resource allocation"
               }
             ].map((useCase, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-gray-800/50 border border-gray-700 rounded-xl p-6 text-center hover:bg-gray-800/70 transition-all duration-300"
+                className="bg-gradient-to-br from-slate-800/80 to-slate-900/80 border border-slate-700/50 rounded-2xl p-8 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 text-center group cursor-pointer"
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.07 }}
               >
-                <div className="mb-4 flex justify-center">{useCase.icon}</div>
-                <h3 className="text-xl font-semibold text-white mb-3">
+                <div className="mb-4 group-hover:glow-text">{useCase.icon}</div>
+                <h4 className="text-xl font-semibold text-white mb-3">
                   {useCase.title}
-                </h3>
+                </h4>
                 <p className="text-gray-400">
                   {useCase.description}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
